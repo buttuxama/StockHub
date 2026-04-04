@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dto.Comment;
 
 namespace api.Dto.Stock
 {
@@ -14,5 +15,6 @@ namespace api.Dto.Stock
         public decimal LastDividend { get; set; }
         public string Industry { get; set; } = String.Empty;
         public int MarketCap { get; set; }
+        public List<CommentDto> Comments { get; set; } = new List<CommentDto>();
     }
 }

@@ -20,6 +20,7 @@ namespace api.Mapper
                 LastDividend = stock.LastDividend,
                 Industry = stock.Industry,
                 MarketCap = stock.MarketCap,
+                Comments = stock.Comments.Select(c => c.ToCommentDto()).ToList(),
             };
         }
 
