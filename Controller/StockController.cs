@@ -8,6 +8,7 @@ using api.Interface;
 using api.Mapper;
 using api.Model;
 using api.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,7 @@ namespace api.Controller
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllStocks([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
@@ -37,6 +39,7 @@ namespace api.Controller
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetStockById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -53,6 +56,7 @@ namespace api.Controller
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
         {
             if (!ModelState.IsValid)
@@ -66,6 +70,7 @@ namespace api.Controller
         }
 
         [HttpPut("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Update(
             [FromRoute] int id,
             [FromBody] UpdateStockRequestDto stockDto
@@ -85,6 +90,7 @@ namespace api.Controller
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)

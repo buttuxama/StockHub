@@ -8,6 +8,7 @@ using api.Dto.Stock;
 using api.Interface;
 using api.Mapper;
 using api.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,7 @@ namespace api.Controller
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllComments()
         {
             if (!ModelState.IsValid)
@@ -43,6 +45,7 @@ namespace api.Controller
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetCommentById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -59,6 +62,7 @@ namespace api.Controller
         }
 
         [HttpPost("{stockId:int}")]
+        [Authorize]
         public async Task<IActionResult> Create(
             [FromRoute] int stockId,
             CreateCommentRequestDto createCommentRequest
@@ -84,6 +88,7 @@ namespace api.Controller
         }
 
         [HttpPut("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Update(
             [FromRoute] int id,
             UpdateCommentRequestDto updateCommentRequest
@@ -106,6 +111,7 @@ namespace api.Controller
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)
