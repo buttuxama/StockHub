@@ -40,8 +40,41 @@ namespace api.Controller
             {
                 return NotFound("User not found");
             }
-            var portfolio = await _portfolioRepository.GetUserPortfolio(user);
+            var portfolio = await _portfolioRepository.GetUserPortfolioAsync(user);
             return Ok(portfolio);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddPortfolio(string symbol)
+        {
+            var username = User.GetUsername();
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            var stock = await _stockRepository.GetStockBySymbolAsync(symbol);
+            if (stock == null)
+            {
+                return NotFound("Stock not found");
+            }
+            var userPortfolio = await _portfolioRepository.GetUserPortfolioAsync(user);
+            if (userPortfolio.Any(e => e.Symbol.ToLower() == symbol.ToLower()))
+            {
+                return BadRequest("Stock already in portfolio");
+            }
+
+            var portfolioEntry = new Portfolio { UserId = user.Id, StockId = stock.Id };
+            await _portfolioRepository.CreatePortfolioAsync(portfolioEntry);
+            if (portfolioEntry == null)
+            {
+                return StatusCode(500, "An error occurred while adding the stock to the portfolio");
+            }
+            else
+            {
+                return Ok("Stock added to portfolio");
+            }
         }
     }
 }
