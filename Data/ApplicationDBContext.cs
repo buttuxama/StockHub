@@ -21,7 +21,7 @@ namespace api.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Portfolio>(x => x.HasKey(p => new { p.UserId, p.stockId }));
+            builder.Entity<Portfolio>(x => x.HasKey(p => new { p.UserId, p.StockId }));
             builder
                 .Entity<Portfolio>()
                 .HasOne(p => p.User)
@@ -32,7 +32,7 @@ namespace api.Data
                 .Entity<Portfolio>()
                 .HasOne(p => p.Stock)
                 .WithMany(u => u.Portfolios)
-                .HasForeignKey(p => p.stockId);
+                .HasForeignKey(p => p.StockId);
 
             List<IdentityRole> roles = new List<IdentityRole>
             {

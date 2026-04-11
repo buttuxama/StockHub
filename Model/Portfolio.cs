@@ -10,7 +10,7 @@ namespace api.Model
     public class Portfolio
     {
         public string UserId { get; set; }
-        public int stockId { get; set; }
+        public int StockId { get; set; }
         public AppUser User { get; set; }
         public Stock Stock { get; set; }
     }
